@@ -11,8 +11,8 @@ $things = array(
 	(string) 11
 	);
 
-foreach ($things as $key => $thing) {
-	if (is_bool($thing)) {
-	echo "The index at $key is a boolean \n";	
+foreach ($things as $thing) {
+	if (is_float($thing)) {
+	echo "$thing is a float \n";	
 	}
 }
