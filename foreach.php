@@ -16,3 +16,5 @@ foreach ($things as $thing) {
 	echo "$thing is a string \n";	
 	}
 }
+
+// go back and do all forms (1 of each if there are multiples) in an if, else if, else loop
