@@ -12,7 +12,7 @@ $things = array(
 	);
 
 foreach ($things as $thing) {
-	if (is_real($thing)) {
-	echo "$thing is a (real) float \n";	
+	if (is_int($thing)) {
+	echo "$thing is an integer \n";	
 	}
 }
