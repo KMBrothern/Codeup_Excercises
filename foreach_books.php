@@ -27,11 +27,12 @@ $books = array(
 foreach ($books as $key => $book) {
     if($book['published'] > 1950) {
         echo "Title : $key\n";
-        foreach ($book as $key => $value) {
-            echo "book's  $key is $value \n";
+        
+        foreach ($book as $key2 => $value) {
+            echo "book's  $key2 is $value \n";
         }
+        echo "===============\n";
     }
-
 }
 
 
