@@ -12,7 +12,7 @@ $things = array(
 	);
 
 foreach ($things as $key => $thing) {
-	if (is_array($thing)) {
-	echo "The thing at index $key is an array \n";	
+	if (is_bool($thing)) {
+	echo "The index at $key is a boolean \n";	
 	}
 }
