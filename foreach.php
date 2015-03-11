@@ -12,7 +12,7 @@ $things = array(
 	);
 
 foreach ($things as $thing) {
-	if (is_scalar($thing)) {
-	echo "$thing is a float, integer, string or boolean \n";	
+	if (is_string($thing)) {
+	echo "$thing is a string \n";	
 	}
 }
