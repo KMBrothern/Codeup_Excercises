@@ -12,7 +12,7 @@ $things = array(
 	);
 
 foreach ($things as $thing) {
-	if (is_int($thing)) {
-	echo "$thing is an integer \n";	
+	if (is_numeric($thing)) {
+	echo "$thing is a number \n";	
 	}
 }
