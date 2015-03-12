@@ -30,20 +30,25 @@ function multiply($a, $b) {
     }
 }
 
-
+// validate divide by 0 errors, display error if attempts are made
+// make the error messages show the value of the arguments
 function divide($a, $b) {
-    if (is_numeric($a) && is_numeric($b)) {
+    if (is_numeric($a) && is_numeric($b) == 0) {
         echo $a / $b . " This is the result of the divide function".PHP_EOL;
     } else {
-        echo "ERROR: Both arguments must be numbers\n";
+        // echo "ERROR: Both arguments must be numbers\n";
+        echo "ERROR: You cannot divide {$a} by {$b}\n";
+
     }
 }
 
 function modulus($a, $b){
-	if (is_numeric($a) && is_numeric($b)) {
+	if (is_numeric($a) && is_numeric($b) == 0) {
         echo $a % $b . " This is the result of the modulus function".PHP_EOL;
     } else {
-        echo "ERROR: Both arguments must be numbers\n";
+        // echo "ERROR: Both arguments must be numbers\n";
+        echo "ERROR: You cannot divide {$a} by {$b} to get modulus\n";
+
     }
 }
 
@@ -51,5 +56,5 @@ function modulus($a, $b){
 add(7, 10);
 subtract(25, 17);
 multiply(5, 12);
-divide(12, 3);
-modulus(2, 12);
+divide(12, 0);
+modulus(2, 0);
