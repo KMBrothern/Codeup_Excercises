@@ -6,33 +6,49 @@
 // $b =5;
 
 function add($a, $b) {
+	  if (is_numeric($a) && is_numeric($b)) {
+        echo $a + $b . " This is the result of the add function". PHP_EOL;
+    } else {
+        echo "ERROR: Both arguments must be numbers\n";
+    }
 
-    echo $a + $b;
 }
 
 function subtract($a, $b) {
-    // Add code here
-    echo $a - $b;
+    if (is_numeric($a) && is_numeric($b)) {
+        echo $a - $b . " This is the result of the subtract function". PHP_EOL;
+    } else {
+        echo "ERROR: Both arguments must be numbers\n";
+    }
 }
 
 function multiply($a, $b) {
-    // Add code here
-    echo $a * $b;
+    if (is_numeric($a) && is_numeric($b)) {
+        echo $a * $b . " This is the result of the multiply function".PHP_EOL;
+    } else {
+        echo "ERROR: Both arguments must be numbers\n";
+    }
 }
 
 
 function divide($a, $b) {
-    // Add code here
-    echo $a / $b;
+    if (is_numeric($a) && is_numeric($b)) {
+        echo $a / $b . " This is the result of the divide function".PHP_EOL;
+    } else {
+        echo "ERROR: Both arguments must be numbers\n";
+    }
 }
 
 function modulus($a, $b){
-	echo $a % $b;
+	if (is_numeric($a) && is_numeric($b)) {
+        echo $a % $b . " This is the result of the modulus function".PHP_EOL;
+    } else {
+        echo "ERROR: Both arguments must be numbers\n";
+    }
 }
 
 
 add(7, 10);
-
 subtract(25, 17);
 multiply(5, 12);
 divide(12, 3);
