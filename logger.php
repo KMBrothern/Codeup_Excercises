@@ -7,7 +7,7 @@ function logMessage($logLevel, $message)
     $logString = $date." ".$time;
     // $logString = "This is a log file";
     // todo - complete this function
-    $filename = $date.".txt";
+    $filename = "log-".$date.".txt";
     $handle = fopen($filename, 'a');
     fwrite($handle, PHP_EOL. $logString." "."[$logLevel]"." ".$message);
     echo "file has been written \n";
