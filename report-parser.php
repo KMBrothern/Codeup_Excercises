@@ -32,18 +32,54 @@
 
 	foreach ($contentsOfReportAsArray as $key) {
 		$eachEmployeeAsArray[] = explode(', ', $key);
-		// here I could perhaps use array columns to make the separate arrays for me and change their keys to names at the same time
-	// 	$eachEmployee [$key] ['Employee Number'] = $eachEmployeeAsArray[0];
-	// 	$eachEmployee [$key] ['Full Name'] = $eachEmployeeAsArray [1]." ". $eachEmployeeAsArray[2];
-	// 	$eachEmployee [$key] ['Units Sold'] = $eachEmployeeAsArray[3];
 	}
 
-	// print_r($eachEmployee);
-print_r($eachEmployeeAsArray);
+// print_r($eachEmployeeAsArray);
+
+// here I could perhaps use array columns to make the separate arrays for me and change their keys to names at the same time
 // array_columns here
+$unitsSold = array_column($eachEmployeeAsArray, 3, 'Units Sold');
+$firstName = array_column($eachEmployeeAsArray, 1, 'First Name');
+$lastName =  array_column($eachEmployeeAsArray, 2, 'Last Name');
+$employeeNumber = array_column($eachEmployeeAsArray, 0, 'Employee Number');
+// shift the key names off the beginning of these new array
+// they contain the values that I want to use for headers
+	$unitsHeader = array_shift($unitsSold);
+	$firstNameHeader = array_shift($firstName);
+	$lastNameHeader = array_shift($lastName);
+	$employeeNumberHeader = array_shift($employeeNumber);
+
+echo "\n";
+// first tier header
+echo str_pad($reportName, 50);
+echo str_pad($reportOffice, 40);
+echo str_pad($reportDate, 20). PHP_EOL;
+echo "\n";
+// second tier header
+echo str_pad($unitsHeader, 30);
+echo str_pad($firstNameHeader, 30);
+echo str_pad($lastNameHeader, 30);
+echo str_pad($employeeNumberHeader, 10).PHP_EOL;
+echo "\n";
 
 
-echo str_pad($reportName, 30);
-echo str_pad($reportOffice, 30);
-echo str_pad($reportDate, 10). PHP_EOL;
-// print_r($eachEmployee);
+
+
+// print_r($unitsSold);
+// print_r($employeeNumber);
+// print_r($firstName);
+// print_r($lastName);
+
+// for loop to iterate through arrays and output each employees stats
+for ($i=0; $i < count($unitsSold); $i++) { 
+	$formattedStrings[] = str_pad($unitsSold[$i], 30). str_pad($firstName[$i], 30). str_pad($lastName[$i], 30). str_pad($employeeNumber[$i], 10). PHP_EOL;
+}
+// sort your formatted strings array
+natsort($formattedStrings);
+
+$orderedArray = array_reverse($formattedStrings);
+// once its in the order that we want, then
+// we will for each on the $formattedStrings array for each string in that array
+foreach ($orderedArray as $string) {
+	echo $string;
+}
