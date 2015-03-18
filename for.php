@@ -9,4 +9,8 @@ $incrementValue = trim(fgets(STDIN));
 
 for ($i = $startingNumber; $i <= $endingNumber; $i+= $incrementValue){
 	echo "$i\n";
+
+    if (condition) {
+        # code...
+    }
 }
