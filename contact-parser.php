@@ -1,8 +1,6 @@
 <?php
 
-function parseContacts($filename)
-{
-    // $contacts = array();
+function parseContacts($filename) {
 
     // todo - read file and parse contacts
     $filename = 'contacts.txt';
@@ -16,7 +14,7 @@ function parseContacts($filename)
     	$eachContactsArray [$key] ['phone'] = $contactsArray[1];
 
 
-}
+    }
     fclose($handle);
     
     return $eachContactsArray;

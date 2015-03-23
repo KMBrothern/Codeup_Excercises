@@ -39,16 +39,3 @@ foreach ($books as $key => $book) {
 
 
 
-// while ($books as $key['published'] => $value['1950']) {
-// }
-// foreach ($books as $key => $book) {
-//     echo "Title : $key\n";
-//     foreach ($book as $key => $value) {
-//         echo "book's  $key is $value \n";
-//     }
-    
-// }
-
-// foreach ($book as $key => $value) {
-//         echo "book's $key is $value \n";
-
