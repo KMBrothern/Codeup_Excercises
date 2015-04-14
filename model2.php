@@ -1,5 +1,7 @@
 <?php
 
+   require_once 'users_login.php';
+
 class Model {
 
     protected static $dbc;
@@ -22,7 +24,13 @@ class Model {
     {
         if (!self::$dbc)
         {
-            // @TODO: Connect to database
+            self::$dbc = new PDO(
+                'mysql:host='.DB_HOST.';dbname='.DB_NAME, DB_USER, DB_PASS
+                );
+            self::$dbc->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            echo 'You are now connected to the database' . PHP_EOL;
+
         }
     }
 
@@ -32,7 +40,16 @@ class Model {
     public function __get($name)
     {
         // @TODO: Return the value from attributes with a matching $name, if it exists
+        if (array_key_exists($name, $this->attributes)) 
+        {
+
+            return $this->attributes[$name];
+        }
+
+        return null;
     }
+
+
 
     /*
      * Set a new attribute for the object
@@ -40,6 +57,7 @@ class Model {
     public function __set($name, $value)
     {
         // @TODO: Store name/value pair in attributes array
+         $this->attributes[$name] = $value;
     }
 
     /*
@@ -47,29 +65,52 @@ class Model {
      */
     public function save()
     {
-        // @TODO: Ensure there are attributes before attempting to save
+        // @TODO: Ensure there are attributes before attempting to save 
+        if (!empty($this->attributes))
+        {
+            // Then you can save to the attributes array
+        }
 
         // @TODO: Perform the proper action - if the `id` is set, this is an update, if not it is a insert
+        if (array_key_exists($id, $this->attributes))
+        {
+            //$query = "UPDATE contacts WHERE id = $id";
+            // self::$dbc->query($query);
+        }else{
+            // $query = "INSERT INTO contacts WHERE id = $id VALUES (:id, :name, :email)";
+            // self::$dbc->prepare($query)
+            // $stmt->bindValue(':id', );
+            // $stmt->bindValue(':name', );
+            // $stmt->bindValue(':email', );
+            // self::$dbc->execute ??
+        }
 
         // @TODO: Ensure that update is properly handled with the id key
 
         // @TODO: After insert, add the id back to the attributes array so the object can properly reflect the id
 
         // @TODO: You will need to iterate through all the attributes to build the prepared query
+        // foreach($contacts as $contact)
+        // {}
 
         // @TODO: Use prepared statements to ensure data security
 
     /*
      * Find a record based on an id
      */
+    }
     public static function find($id)
     {
         // Get connection to the database
         self::dbConnect();
 
         // @TODO: Create select statement using prepared statements
+        $query = "SELECT * FROM contacts WHERE id = $id";
+        $results = self::$dbc->query($query)->fetchAll(PDO::FETCH_ASSOC);
+        return $results;
 
-        // @TODO: Store the resultset in a variable named $result
+
+        // @TODO: Store the result set in a variable named $result
 
         // The following code will set the attributes on the calling object based on the result variable's contents
 
@@ -90,6 +131,13 @@ class Model {
         self::dbConnect();
 
         // @TODO: Learning from the previous method, return all the matching records
+        $query  = 'SELECT * FROM contacts';
+        $results = self::$dbc->query($query)->fetchAll(PDO::FETCH_ASSOC);
+        return $results;
+
+      
     }
 
 }
+
+
