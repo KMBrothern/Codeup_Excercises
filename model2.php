@@ -82,27 +82,33 @@ class Model {
         // @TODO: Perform the proper action - if the key is set, this is an update, if not it is a insert
     protected function update()
     {
-        // $query = "UPDATE contacts 
-        // SET name = ':name', email = ':email'
-        // WHERE :email = $this->attributes['email']";
-        // $stmt = $dbc->prepare($query);
+        $query = "UPDATE contacts 
+        SET name = ':name', email = ':email'
+        WHERE :email = $this->attributes['email']";
+        $stmt = $dbc->prepare($query);
 
-            // $stmt->bindValue(':name', $user['name'], PDO::PARAM_STR);
-            // $stmt->bindValue(':email', $user['email'], PDO::PARAM_STR);
-            // $stmt->execute();
+            $stmt->bindValue(':name', $this->name, PDO::PARAM_STR);
+            $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
+            $stmt->execute();
+
+
+        echo "Updated ID: " . self::$dbc->lastInsertId() . PHP_EOL;
+    
         echo "The update() method was called by the save() method";
     }
 
      protected function insert()
      {   
-        // $query = "INSERT INTO contacts (id, name, email)
-        // VALUES (?, ?, ?)
-        // WHERE email = $this->attributes['email']";
+        $query = "INSERT INTO contacts (id, name, email)
+        VALUES (:id, :name, :email)";
         
-        // $stmt = self::$dbc->prepare($query);
+        $stmt = self::$dbc->prepare($query);
 
-        
-
+        $stmt->bindValue(':id', $this->id, PDO::PARAM_STR);
+        $stmt->bindValue(':name', $this->name, PDO::PARAM_STR);
+        $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
+        $stmt->execute();
+        echo "Inserted ID: " . self::$dbc->lastInsertId() . PHP_EOL;
 
         echo "The insert() method was called by the save() method" . PHP_EOL;
         
