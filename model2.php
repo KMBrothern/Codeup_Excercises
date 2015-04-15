@@ -65,46 +65,69 @@ class Model {
      */
     public function save()
     {
-        // @TODO: Ensure there are attributes before attempting to save 
-        if (!empty($this->attributes))
+        $query = 'SELECT * FROM contacts WHERE email = :email';
+        $stmt = self::$dbc->prepare($query);
+        $stmt->bindValue(':email', $this->attributes['email'], PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (!empty($result['email']))
         {
-            // Then you can save to the attributes array
+            $this->update();
+        } else {
+            $this->insert();
         }
-
-        // @TODO: Perform the proper action - if the `id` is set, this is an update, if not it is a insert
-        if (array_key_exists($id, $this->attributes))
-        {
-            //$query = "UPDATE contacts WHERE id = $id";
-            // self::$dbc->query($query);
-        }else{
-            // $query = "INSERT INTO contacts WHERE id = $id VALUES (:id, :name, :email)";
-            // self::$dbc->prepare($query)
-            // $stmt->bindValue(':id', );
-            // $stmt->bindValue(':name', );
-            // $stmt->bindValue(':email', );
-            // self::$dbc->execute ??
-        }
-
-        // @TODO: Ensure that update is properly handled with the id key
-
-        // @TODO: After insert, add the id back to the attributes array so the object can properly reflect the id
-
-        // @TODO: You will need to iterate through all the attributes to build the prepared query
-        // foreach($contacts as $contact)
-        // {}
-
-        // @TODO: Use prepared statements to ensure data security
-
-    /*
-     * Find a record based on an id
-     */
     }
+
+        // @TODO: Perform the proper action - if the key is set, this is an update, if not it is a insert
+    protected function update()
+    {
+        // $query = "UPDATE contacts 
+        // SET name = ':name', email = ':email'
+        // WHERE :email = $this->attributes['email']";
+        // $stmt = $dbc->prepare($query);
+
+            // $stmt->bindValue(':name', $user['name'], PDO::PARAM_STR);
+            // $stmt->bindValue(':email', $user['email'], PDO::PARAM_STR);
+            // $stmt->execute();
+        echo "The update() method was called by the save() method";
+    }
+
+     protected function insert()
+     {   
+        // $query = "INSERT INTO contacts (id, name, email)
+        // VALUES (?, ?, ?)
+        // WHERE email = $this->attributes['email']";
+        
+        // $stmt = self::$dbc->prepare($query);
+
+        
+
+
+        echo "The insert() method was called by the save() method" . PHP_EOL;
+        
+    }
+        
+
+    //     // @TODO: Ensure that update is properly handled with the id key
+
+    //     // @TODO: After insert, add the id back to the attributes array so the object can properly reflect the id
+
+    //     // @TODO: You will need to iterate through all the attributes to build the prepared query
+ 
+    //     // @TODO: Use prepared statements to ensure data security
+
+    // /*
+    //  * Find a record based on an id
+    //  */
+    // }
     public static function find($id)
     {
         // Get connection to the database
         self::dbConnect();
 
         // @TODO: Create select statement using prepared statements
+
         $query = "SELECT * FROM contacts WHERE id = $id";
         $results = self::$dbc->query($query)->fetchAll(PDO::FETCH_ASSOC);
         return $results;
