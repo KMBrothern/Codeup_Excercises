@@ -32,4 +32,4 @@ print_r($findUser);
 // Retrieve all users from table--Done
 $findAll = User::all();
 // Will print all user's info found in table and print to the screen
-print_r($findAll);
+print_r($findAll)
