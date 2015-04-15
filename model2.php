@@ -65,13 +65,7 @@ class Model {
      */
     public function save()
     {
-        $query = 'SELECT * FROM contacts WHERE email = :email';
-        $stmt = self::$dbc->prepare($query);
-        $stmt->bindValue(':email', $this->attributes['email'], PDO::PARAM_STR);
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        if (!empty($result['email']))
+        if (!empty($this->attributes['id']))
         {
             $this->update();
         } else {
@@ -83,16 +77,15 @@ class Model {
     protected function update()
     {
         $query = "UPDATE contacts 
-        SET name = ':name', email = ':email'
-        WHERE :email = $this->attributes['email']";
-        $stmt = $dbc->prepare($query);
+        SET name = :name, email = :email
+        WHERE id = :id";
+        $stmt = self::$dbc->prepare($query);
 
             $stmt->bindValue(':name', $this->name, PDO::PARAM_STR);
             $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
+            $stmt->bindValue(':id', $this->id, PDO::PARAM_STR);
+
             $stmt->execute();
-
-
-        echo "Updated ID: " . self::$dbc->lastInsertId() . PHP_EOL;
     
         echo "The update() method was called by the save() method";
     }
@@ -114,32 +107,17 @@ class Model {
         
     }
         
-
-    //     // @TODO: Ensure that update is properly handled with the id key
-
-    //     // @TODO: After insert, add the id back to the attributes array so the object can properly reflect the id
-
-    //     // @TODO: You will need to iterate through all the attributes to build the prepared query
- 
-    //     // @TODO: Use prepared statements to ensure data security
-
     // /*
     //  * Find a record based on an id
     //  */
-    // }
     public static function find($id)
     {
         // Get connection to the database
         self::dbConnect();
 
-        // @TODO: Create select statement using prepared statements
-
         $query = "SELECT * FROM contacts WHERE id = $id";
-        $results = self::$dbc->query($query)->fetchAll(PDO::FETCH_ASSOC);
-        return $results;
-
-
-        // @TODO: Store the result set in a variable named $result
+        $result = self::$dbc->query($query)->fetch(PDO::FETCH_ASSOC);
+        
 
         // The following code will set the attributes on the calling object based on the result variable's contents
 
@@ -165,6 +143,22 @@ class Model {
         return $results;
 
       
+    }
+
+    public function delete()
+    {
+        $id = $this->attributes['id'];
+
+        $query = "DELETE FROM contacts
+        WHERE id = :id";
+
+        $stmt = self::$dbc->prepare($query);
+
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+
+        $stmt->execute();
+
+        echo "Deleted contact found at ID : " . $id;
     }
 
 }
